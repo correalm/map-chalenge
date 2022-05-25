@@ -2,7 +2,7 @@
 import "./Map.sass";
 
 // REACT
-import { memo } from "react";
+import { memo, useRef } from "react";
 
 // GOOGLE MAPS API
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
@@ -34,7 +34,7 @@ const MyMap = () => {
       disableDefaultUI: true,
       zoomControl: true,
       zoomControlOptions: {
-        position: google.maps.ControlPosition.RIGHT_TOP, // 'centro-direita' ,
+        position: google.maps.ControlPosition.RIGHT_TOP,
       },
       mapTypeId: "satellite",
     };
@@ -69,12 +69,10 @@ const MyMap = () => {
     // };
 
     const handleClickMarker = (element, e) => {
-      if (selected) {
-        setSelected(false);
-        e.domEvent.target.src = pin;
-      } else {
+      if (selected !== element.id) {
         setSelected(element.id);
-        e.domEvent.target.src = pin2;
+      } else {
+        setSelected(false);
       }
     };
 
@@ -95,13 +93,13 @@ const MyMap = () => {
             {state.map((element) => (
               <Marker
                 key={element.id}
-                draggable={true}
+                draggable={selected === element.id ? true : false}
                 onClick={(e) => handleClickMarker(element, e)}
-                icon={pin}
+                icon={selected === element.id ? pin2 : pin}
                 position={element.coordinates}
               />
             ))}
-            {isLoaded && <List />}
+            <List />
             <Control />
             {/* Child components, such as markers, info windows, etc. */}
           </GoogleMap>
