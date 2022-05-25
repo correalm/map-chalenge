@@ -11,6 +11,13 @@ a[href^="https://www.google.com/maps"]
 .gm-bundled-control .gmnoprint {
   display: block;
 }
-.gmnoprint:not(.gm-bundled-control) {
+
+.gm-style-cc {
   display: none;
+}
+.gmnoprint gm-bundled-control {
+  display: block;
+}
+.gmnoprint[data-control-width] {
+  width: 30px;
 }

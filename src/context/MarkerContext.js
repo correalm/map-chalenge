@@ -1,12 +1,19 @@
 import { createContext, useReducer, useState, useContext } from "react";
-import data from "../GEOJson.json";
+
+// DATA
+import geoCoordinates from "../GEOJson.json";
+
+// UTILITES
 import calculateCenter from "../utilites/calculateCenter";
 import removePin from "../utilites/removePin";
 
+// Testando com outras coordenadas
+import dataTest from "../GEOTestJson.json";
+
 const MarkersContext = createContext();
 
-// DATA
-const { geometry } = data.features[0];
+// PATHS TO POLYGON
+const { geometry } = dataTest.features[0];
 const { coordinates } = geometry;
 const paths = [];
 

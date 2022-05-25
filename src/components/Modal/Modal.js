@@ -1,31 +1,82 @@
+// CONTEXT
 import { useModalContext } from "../../context/ModalContext";
 import { useMarkersContext } from "../../context/MarkerContext";
-import trash from "../../assets/Trash.svg";
-import "./Modal.scss";
 
-import React from "react";
+// ICONS
+import trash from "../../assets/Trash.svg";
+
+// SASS
+import "./Modal.sass";
+
+// REACT
+import React, { useEffect } from "react";
+import Button from "../Control/Button/Button";
 
 const Modal = () => {
-  const { show, toggleShow } = useModalContext();
+  const { show, toggleShow, functionToExclude } = useModalContext();
+  const { state, dispatch, selected, setSelected } = useMarkersContext();
 
-  const { state, dispatch, center, selected, setSelected } =
-    useMarkersContext();
-  console.log(selected);
+  const handleDeleteAll = () => {
+    dispatch({
+      type: "REMOVE-ALL",
+    });
+    setSelected(false);
+    toggleShow();
+  };
+
+  const handleDeletePin = (pinSelected) => {
+    dispatch({
+      type: "REMOVE",
+      payload: pinSelected,
+    });
+    setSelected(false);
+    toggleShow();
+  };
+
+  const handleCancell = () => {
+    // setSelected(false);
+    toggleShow();
+  };
 
   return (
     <>
       {show && (
-        <div id="modal" className="modal">
-          <div className="modal-content">
-            <div className="images-modal">
-              <button className="btn btn-red">
-                Excluir Todos
-                <img src={trash} />
-              </button>
+        <div className="modalWrapper">
+          <div>
+            <div className="close">
+              <span onClick={handleCancell}>&times;</span>
             </div>
-            <span onClick={toggleShow} className="close">
-              &times;
-            </span>
+            <div className="modalContent">
+              <div className="contentTitle">
+                <h3>
+                  {functionToExclude === "handleDeleteAll"
+                    ? "Excluir todos os pontos?"
+                    : "Excluir Ponto?"}
+                </h3>
+              </div>
+              <div className="contentCard">
+                <div className="card">
+                  <h6>Atenção</h6>
+                  <p>Essa ação não poderá ser desfeita.</p>
+                </div>
+              </div>
+              <div className="buttons">
+                <button
+                  onClick={toggleShow}
+                  onClick={
+                    functionToExclude === "handleDeleteAll"
+                      ? handleDeleteAll
+                      : () => handleDeletePin(selected)
+                  }
+                  className="exclude"
+                >
+                  Excluir
+                </button>
+                <button onClick={handleCancell} className="cancell">
+                  Cancelar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

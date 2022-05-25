@@ -3,6 +3,7 @@ import { createContext, useState, useContext } from "react";
 const ModalContext = createContext();
 
 export const ModalContextProvider = ({ children }) => {
+  const [functionToExclude, setFunctionToExclude] = useState(null);
   const [show, setShow] = useState(false);
 
   const toggleShow = () => {
@@ -10,7 +11,9 @@ export const ModalContextProvider = ({ children }) => {
   };
 
   return (
-    <ModalContext.Provider value={{ show, toggleShow }}>
+    <ModalContext.Provider
+      value={{ show, toggleShow, functionToExclude, setFunctionToExclude }}
+    >
       {children}
     </ModalContext.Provider>
   );

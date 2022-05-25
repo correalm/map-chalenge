@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { memo } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { Polygon } from "@react-google-maps/api";
@@ -30,7 +30,7 @@ const polygonOptions = {
 };
 
 const MyMap = () => {
-  const { state, paths, center, setSelected, selected, setLoad } =
+  const { state, paths, center, setSelected, selected, setLoad, dispatch } =
     useMarkersContext();
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -42,16 +42,16 @@ const MyMap = () => {
 
   const map = () => {
     const options = {
+      disableDefaultUI: true,
       zoomControl: true,
       zoomControlOptions: {
         position: google.maps.ControlPosition.RIGHT_TOP, // 'centro-direita' ,
       },
-      disableDefaultUI: true,
       mapTypeId: "satellite",
     };
 
     // Ver se é interessante
-    // const handleClick = (e) => {
+    // const handleClickPolygon = (e) => {
     //   const lat = e.latLng.lat();
     //   const lng = e.latLng.lng();
     //   const id = lat + lng / 2;
@@ -69,10 +69,10 @@ const MyMap = () => {
         e.domEvent.target.src = pin;
       } else {
         setSelected(element.id);
-        console.log(e);
         e.domEvent.target.src = pin2;
       }
     };
+    console.log(selected);
 
     return (
       <div className="map">
@@ -86,7 +86,7 @@ const MyMap = () => {
             <Polygon
               paths={paths}
               options={polygonOptions}
-              // onClick={handleClick}
+              // onClick={handleClickPolygon}
             />
             {state.map((element) => (
               <Marker
@@ -99,7 +99,6 @@ const MyMap = () => {
             ))}
             <List />
             <Control />
-
             {/* Child components, such as markers, info windows, etc. */}
           </GoogleMap>
         )}
