@@ -14,7 +14,7 @@ import dataTest from "../GEOTestJson.json";
 const MarkersContext = createContext();
 
 // PATHS TO POLYGON
-const { geometry } = dataTest.features[0];
+const { geometry } = geoCoordinates.features[0];
 const { coordinates } = geometry;
 const paths = [];
 
