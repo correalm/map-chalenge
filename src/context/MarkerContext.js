@@ -1,3 +1,4 @@
+// REACT
 import { createContext, useReducer, useState, useContext } from "react";
 
 // DATA
@@ -21,6 +22,10 @@ coordinates.forEach((coordinate) =>
   coordinate.forEach((path) => paths.push({ lat: path[1], lng: path[0] }))
 );
 
+// CENTER OF POLYGON
+const center = calculateCenter(paths);
+
+// CONFIG REDUCER
 const markersReducer = (state, action) => {
   switch (action.type) {
     case "ADD":
@@ -34,7 +39,6 @@ const markersReducer = (state, action) => {
   }
 };
 
-const center = calculateCenter(paths);
 const initialState = [];
 
 export const MarkersContextProvider = ({ children }) => {

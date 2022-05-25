@@ -1,5 +1,5 @@
 import "./List.sass";
-import "./scroll.css";
+import "./ScrollBar.sass";
 import { useMarkers, useMarkersContext } from "../../context/MarkerContext";
 import ListPoint from "./ListPoint";
 import { useEffect, useState } from "react";

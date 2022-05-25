@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Header from "./components/Header/Header";
-import MyMap from "./components/Map/MyMap";
+import Map from "./components/Map/Map";
 import Modal from "./components/Modal/Modal";
 
 function App() {
@@ -10,7 +9,7 @@ function App() {
       <Modal />
       <Header />
       <div className="App">
-        <MyMap />
+        <Map />
       </div>
     </>
   );
