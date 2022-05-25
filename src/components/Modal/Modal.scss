@@ -1,0 +1,46 @@
+@use "mixins";
+
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  .modal-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    span {
+      margin: 0 1%;
+      cursor: pointer;
+      color: #fff;
+      float: right;
+      font-size: 55px;
+      font-weight: bold;
+      line-height: 22px;
+
+      @include mixins.mini-mobile {
+        z-index: 9999;
+        position: fixed;
+        top: 11%;
+        right: 2%;
+      }
+    }
+  }
+  .images-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}
