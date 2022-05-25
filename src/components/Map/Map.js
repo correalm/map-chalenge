@@ -93,7 +93,7 @@ const MyMap = () => {
             {state.map((element) => (
               <Marker
                 key={element.id}
-                draggable={!selected ? true : false}
+                draggable={true}
                 onClick={(e) => handleClickMarker(element, e)}
                 icon={selected === element.id ? pin2 : pin}
                 position={element.coordinates}
