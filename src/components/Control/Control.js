@@ -35,38 +35,38 @@ const Control = () => {
   };
 
   return (
-    <div
-      className={
-        state.length === 0
-          ? "controls"
-          : selected
-          ? "controls controls-selected"
-          : "controls controls-deleteAll"
-      }
-    >
+    <>
       {selected && (
-        <Button
-          func={handleDeletePin}
-          className={"btn btn-red"}
-          text={"Excluir Ponto"}
-          svg={"trash"}
-        />
+        <div className="controls controls-selected">
+          <Button
+            func={handleDeletePin}
+            className={"btn btn-red"}
+            text={"Deletar Pin"}
+            svg={"trash"}
+          />
+        </div>
       )}
-      <Button
-        func={handleAddPin}
-        className={"btn"}
-        text={"Adicionar Ponto"}
-        svg={"pin"}
-      />
-      {state.length > 0 && (
+      <div
+        className={
+          state.length === 0 ? "controls" : "controls controls-deleteAll"
+        }
+      >
         <Button
-          func={handleDeleteAll}
-          className={"btn btn-red"}
-          text={"Excluir Todos"}
-          svg={"trash"}
+          func={handleAddPin}
+          className={"btn"}
+          text={"Adicionar Novo"}
+          svg={"pin"}
         />
-      )}
-    </div>
+        {state.length > 0 && (
+          <Button
+            func={handleDeleteAll}
+            className={"btn btn-red"}
+            text={"Deletar Todos"}
+            svg={"trash"}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

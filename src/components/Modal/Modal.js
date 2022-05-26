@@ -42,7 +42,7 @@ const Modal = () => {
     <>
       {show && (
         <div className="modalWrapper">
-          <div>
+          <div className="center">
             <div className="close">
               <span onClick={handleCancell}>&times;</span>
             </div>
@@ -51,12 +51,12 @@ const Modal = () => {
                 <h3>
                   {functionToExclude === "handleDeleteAll"
                     ? "Excluir todos os pontos?"
-                    : "Excluir Ponto?"}
+                    : "Excluir ponto selecionado?"}
                 </h3>
               </div>
               <div className="contentCard">
                 <div className="card">
-                  <h6>Atenção</h6>
+                  <h6>Atenção!</h6>
                   <p>Essa ação não poderá ser desfeita.</p>
                 </div>
               </div>
@@ -70,6 +70,7 @@ const Modal = () => {
                   }
                   className="exclude"
                 >
+                  <img src={trash} />
                   Excluir
                 </button>
                 <button onClick={handleCancell} className="cancell">

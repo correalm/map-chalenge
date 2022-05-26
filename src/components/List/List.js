@@ -5,7 +5,7 @@ import ListPoint from "./ListPoint";
 import { useEffect, useState } from "react";
 
 const List = () => {
-  const { state } = useMarkersContext();
+  const { state, selected } = useMarkersContext();
 
   return (
     <div className="container">
@@ -19,6 +19,11 @@ const List = () => {
           state.map((point, index) => (
             <ListPoint
               key={point.id}
+              className={
+                point.id === selected
+                  ? "pointContent pointContent-selected"
+                  : "pointContent"
+              }
               point={point}
               index={String(index + 1).padStart(3, "0")}
             />

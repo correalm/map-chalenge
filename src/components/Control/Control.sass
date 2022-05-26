@@ -3,8 +3,14 @@
   position: absolute
   bottom: 20px
   right: 20px
-  transition: .5s
+  @media screen and (max-width: 450px)
+    width: 100%
+    right: 0
+    display: flex
+    flex-direction: column
+    align-items: center
+    transition: .5s
   &-deleteAll
     bottom: 54px
   &-selected
-    bottom: 94px
+    bottom: 105px

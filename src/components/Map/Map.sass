@@ -17,6 +17,10 @@ a[href^="https://www.google.com/maps"]
 .gmnoprint 
 	gm-bundled-control 
 		display: block
-     
+		@media screen and (max-width: 450px) 
+			display: none
+
 .gmnoprint[data-control-width] 
-	width: 30px 
+	width: 30px
+	@media screen and (max-width: 450px) 
+			display: none

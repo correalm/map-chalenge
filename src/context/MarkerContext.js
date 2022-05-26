@@ -42,6 +42,7 @@ const markersReducer = (state, action) => {
 const initialState = [];
 
 export const MarkersContextProvider = ({ children }) => {
+  console.log("Chamei o context");
   const [state, dispatch] = useReducer(markersReducer, initialState);
   const [selected, setSelected] = useState(null);
 

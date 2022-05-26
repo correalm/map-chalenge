@@ -2,7 +2,7 @@
 import "./Map.sass";
 
 // REACT
-import { memo, useRef } from "react";
+import { memo } from "react";
 
 // GOOGLE MAPS API
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
@@ -20,6 +20,8 @@ import pin2 from "../../assets/Regular=off, Move=on.svg";
 import { useMarkersContext } from "../../context/MarkerContext";
 
 const MyMap = () => {
+  console.log("RENDERIZEI O MAP");
+
   // CONFIG LIB
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -67,7 +69,6 @@ const MyMap = () => {
     //     payload: obj,
     //   });
     // };
-
     const handleClickMarker = (element, e) => {
       if (selected !== element.id) {
         setSelected(element.id);
@@ -93,7 +94,7 @@ const MyMap = () => {
             {state.map((element) => (
               <Marker
                 key={element.id}
-                draggable={true}
+                draggable={selected === element.id ? true : false}
                 onClick={(e) => handleClickMarker(element, e)}
                 icon={selected === element.id ? pin2 : pin}
                 position={element.coordinates}
