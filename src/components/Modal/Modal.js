@@ -10,7 +10,7 @@ import "./Modal.sass";
 
 // REACT
 import React, { useEffect } from "react";
-import Button from "../Control/Button/Button";
+import Button from "../Controls/Button/Button";
 
 const Modal = () => {
   const { show, toggleShow, functionToExclude } = useModalContext();

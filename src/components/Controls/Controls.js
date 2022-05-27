@@ -3,7 +3,7 @@ import { useMarkersContext } from "../../context/MarkerContext";
 import { useModalContext } from "../../context/ModalContext";
 
 // SASS
-import "./Control.sass";
+import "./Controls.sass";
 
 import Button from "./Button/Button";
 

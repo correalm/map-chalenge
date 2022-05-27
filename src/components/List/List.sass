@@ -1,13 +1,10 @@
 .container
   position: absolute
+  z-index: 1
   margin-top: 20px
   margin-left: 20px
   border-radius: 8px
   background-color: #fff
-  max-height: 45%
-  @media screen and (max-width: 450px) 
-    max-height: 20%
-  overflow: auto
   background-color: #fff
   .empty
       text-align: center
@@ -31,11 +28,24 @@
       margin-left: 10px
       color: #fff
       font-size: 14px
-    .content
-      display: flex
-      justify-content: center
-      align-items: center
-      padding: 8px
-      transition: .7s
+  .content
+    max-height: 40vh
+    @media screen and (max-width: 450px) 
+      max-height: 20vh
+    overflow: auto
+    border-bottom-left-radius: 8px
+    border-bottom-right-radius: 8px
+    animation: opacityOn .5s
+
+@keyframes opacityOn 
+  100% 
+    opacity: 1
+  0% 
+    opacity: 0
+
+
+
+
+
     
 

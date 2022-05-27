@@ -1,4 +1,6 @@
 .pointContent
+  transition: .5s
+  animation: opacityOn .5s
   display: flex
   flex-direction: column
   justify-content: center
@@ -28,7 +30,8 @@
     color: #808b98
     margin-top: 2px
 
-  // .info
-  //   display: flex
-  //   align-items: center
-  //   height: fit-content
+@keyframes opacityOn 
+  100% 
+    opacity: 1
+  0% 
+    opacity: 0

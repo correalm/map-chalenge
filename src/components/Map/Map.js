@@ -10,7 +10,7 @@ import { Polygon } from "@react-google-maps/api";
 
 // COMPONENTS
 import List from "../List/List";
-import Control from "../Control/Control";
+import Controls from "../Controls/Controls";
 
 // SVG
 import pin from "../../assets/Regular=on, Move=off.svg";
@@ -80,30 +80,32 @@ const MyMap = () => {
     return (
       <div className="map">
         {isLoaded && (
-          <GoogleMap
-            options={mapOptions}
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={16}
-          >
-            <Polygon
-              paths={paths}
-              options={polygonOptions}
-              // onClick={handleClickPolygon}
-            />
-            {state.map((element) => (
-              <Marker
-                key={element.id}
-                draggable={selected === element.id ? true : false}
-                onClick={(e) => handleClickMarker(element, e)}
-                icon={selected === element.id ? pin2 : pin}
-                position={element.coordinates}
-              />
-            ))}
+          <>
             <List />
-            <Control />
-            {/* Child components, such as markers, info windows, etc. */}
-          </GoogleMap>
+            <GoogleMap
+              options={mapOptions}
+              mapContainerStyle={containerStyle}
+              center={center}
+              zoom={16}
+            >
+              <Polygon
+                paths={paths}
+                options={polygonOptions}
+                // onClick={handleClickPolygon}
+              />
+              {state.map((element) => (
+                <Marker
+                  key={element.id}
+                  draggable={selected === element.id ? true : false}
+                  onDragEnd={() => setSelected(false)}
+                  onClick={(e) => handleClickMarker(element, e)}
+                  icon={selected === element.id ? pin2 : pin}
+                  position={element.coordinates}
+                />
+              ))}
+              <Controls />
+            </GoogleMap>
+          </>
         )}
       </div>
     );
