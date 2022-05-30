@@ -13,13 +13,14 @@ import List from "../List/List";
 import Controls from "../Controls/Controls";
 import Header from "../Header/Header";
 import Markers from "../Markers/Markers";
+import Load from "../Load/Load";
 
 // CONTEXT
 import { useMarkersContext } from "../../context/MarkerContext";
 
 // OPTIONS
 import { polygonOptions } from "../../utilites/polygonOptions";
-import Load from "../Load/Load";
+
 
 const MyMap = () => {
   // CONFIG LIB
@@ -43,6 +44,7 @@ const MyMap = () => {
     //     payload: obj,
     //   });
     // };
+    
     // MAP
     const mapOptions = {
       disableDefaultUI: true,
