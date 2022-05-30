@@ -13,7 +13,6 @@ const Control = () => {
 
   const handleAddPin = (e) => {
     const time = Date.now();
-    console.log(time);
     const obj = {
       coordinates: { lat: center.lat, lng: center.lng },
       timestamp: time,

@@ -5,23 +5,23 @@ import "./Map.sass";
 import { memo } from "react";
 
 // GOOGLE MAPS API
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { Polygon } from "@react-google-maps/api";
 
 // COMPONENTS
 import List from "../List/List";
 import Controls from "../Controls/Controls";
-
-// SVG
-import pin from "../../assets/Regular=on, Move=off.svg";
-import pin2 from "../../assets/Regular=off, Move=on.svg";
+import Header from "../Header/Header";
+import Markers from "../Markers/Markers";
 
 // CONTEXT
 import { useMarkersContext } from "../../context/MarkerContext";
 
-const MyMap = () => {
-  console.log("RENDERIZEI O MAP");
+// OPTIONS
+import { polygonOptions } from "../../utilites/polygonOptions";
+import Load from "../Load/Load";
 
+const MyMap = () => {
   // CONFIG LIB
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -29,9 +29,21 @@ const MyMap = () => {
   });
   const google = window.google;
 
-  const { state, paths, center, setSelected, selected } = useMarkersContext();
+  const { paths, center } = useMarkersContext();
 
   const map = () => {
+    // Ver se é interessante
+    // const handleClickPolygon = (e) => {
+    //   const lat = e.latLng.lat();
+    //   const lng = e.latLng.lng();
+    //   const time = Date.now();
+    //   const obj = { coordinates: { lat: lat, lng: lng }, timestamp: time, id: time };
+    //   dispatch({
+    //     type: "ADD",
+    //     payload: obj,
+    //   });
+    // };
+    // MAP
     const mapOptions = {
       disableDefaultUI: true,
       zoomControl: true,
@@ -40,72 +52,31 @@ const MyMap = () => {
       },
       mapTypeId: "satellite",
     };
-    const polygonOptions = {
-      fillColor: "#FFF",
-      fillOpacity: 0.3,
-      strokeColor: "#FFF",
-      strokeOpacity: 1,
-      strokeWeight: 1,
-      clickable: false,
-      draggable: false,
-      editable: false,
-      geodesic: false,
-      zIndex: 1,
-    };
+
     const containerStyle = {
       width: "100%",
       height: "100%",
     };
 
-    // Ver se é interessante
-    // const handleClickPolygon = (e) => {
-    //   const lat = e.latLng.lat();
-    //   const lng = e.latLng.lng();
-    //   const id = lat + lng / 2;
-    //   const time = Date.now();
-    //   const obj = { coordinates: { lat: lat, lng: lng }, timestamp: time, id };
-    //   dispatch({
-    //     type: "ADD",
-    //     payload: obj,
-    //   });
-    // };
-    const handleClickMarker = (element, e) => {
-      if (selected !== element.id) {
-        setSelected(element.id);
-      } else {
-        setSelected(false);
-      }
-    };
-
     return (
       <div className="map">
+        <Header />
+        <List />
         {isLoaded && (
-          <>
-            <List />
-            <GoogleMap
-              options={mapOptions}
-              mapContainerStyle={containerStyle}
-              center={center}
-              zoom={16}
-            >
-              <Polygon
-                paths={paths}
-                options={polygonOptions}
-                // onClick={handleClickPolygon}
-              />
-              {state.map((element) => (
-                <Marker
-                  key={element.id}
-                  draggable={selected === element.id ? true : false}
-                  onDragEnd={() => setSelected(false)}
-                  onClick={(e) => handleClickMarker(element, e)}
-                  icon={selected === element.id ? pin2 : pin}
-                  position={element.coordinates}
-                />
-              ))}
-              <Controls />
-            </GoogleMap>
-          </>
+          <GoogleMap
+            options={mapOptions}
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={16}
+          >
+            <Polygon
+              paths={paths}
+              options={polygonOptions}
+              // onClick={handleClickPolygon}
+            />
+            <Markers />
+            <Controls />
+          </GoogleMap>
         )}
       </div>
     );
@@ -114,7 +85,7 @@ const MyMap = () => {
   if (isLoaded) {
     return map();
   } else {
-    return <p>Carregando...</p>;
+    return <Load />;
   }
 };
 

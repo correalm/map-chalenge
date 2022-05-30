@@ -1,7 +1,7 @@
 import "./List.sass";
 import "./ScrollBar.sass";
 import { useMarkers, useMarkersContext } from "../../context/MarkerContext";
-import ListPoint from "./ListPoint";
+import ListPoint from "./ListPoint/ListPoint";
 import { useEffect, useState } from "react";
 
 const List = () => {

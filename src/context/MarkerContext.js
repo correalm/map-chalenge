@@ -1,15 +1,22 @@
 // REACT
-import { createContext, useReducer, useState, useContext } from "react";
+import {
+  createContext,
+  useReducer,
+  useState,
+  useContext,
+  useEffect,
+} from "react";
 
 // DATA
 import geoCoordinates from "../GEOJson.json";
 
 // UTILITES
 import calculateCenter from "../utilites/calculateCenter";
-import removePin from "../utilites/removePin";
 
 // Testando com outras coordenadas
 import dataTest from "../GEOTestJson.json";
+// REDUCER
+import { markersReducer } from "../reducers/markersReducer";
 
 const MarkersContext = createContext();
 
@@ -25,25 +32,16 @@ coordinates.forEach((coordinate) =>
 // CENTER OF POLYGON
 const center = calculateCenter(paths);
 
-// CONFIG REDUCER
-const markersReducer = (state, action) => {
-  switch (action.type) {
-    case "ADD":
-      return [...state, action.payload];
-    case "REMOVE-ALL":
-      return (state = []);
-    case "REMOVE":
-      return (state = removePin(state, action.payload));
-    default:
-      return state;
-  }
-};
-
-const initialState = [];
-
 export const MarkersContextProvider = ({ children }) => {
-  console.log("Chamei o context");
-  const [state, dispatch] = useReducer(markersReducer, initialState);
+  const [state, dispatch] = useReducer(markersReducer, [], () => {
+    const localData = localStorage.getItem("points");
+    return localData ? JSON.parse(localData) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("points", JSON.stringify(state));
+  }, [state]);
+
   const [selected, setSelected] = useState(null);
 
   return (

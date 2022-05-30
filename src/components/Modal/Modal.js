@@ -8,13 +8,10 @@ import trash from "../../assets/Trash.svg";
 // SASS
 import "./Modal.sass";
 
-// REACT
-import React, { useEffect } from "react";
-import Button from "../Controls/Button/Button";
-
 const Modal = () => {
   const { show, toggleShow, functionToExclude } = useModalContext();
-  const { state, dispatch, selected, setSelected } = useMarkersContext();
+
+  const { dispatch, selected, setSelected } = useMarkersContext();
 
   const handleDeleteAll = () => {
     dispatch({
@@ -26,7 +23,7 @@ const Modal = () => {
 
   const handleDeletePin = (pinSelected) => {
     dispatch({
-      type: "REMOVE",
+      type: "REMOVE-PIN",
       payload: pinSelected,
     });
     setSelected(false);
@@ -34,8 +31,17 @@ const Modal = () => {
   };
 
   const handleCancell = () => {
-    // setSelected(false);
+    // select(false);
     toggleShow();
+  };
+
+  const handleClick = () => {
+    toggleShow();
+    if (functionToExclude === "handleDeleteAll") {
+      return handleDeleteAll();
+    } else {
+      handleDeletePin(selected);
+    }
   };
 
   return (
@@ -61,16 +67,8 @@ const Modal = () => {
                 </div>
               </div>
               <div className="buttons">
-                <button
-                  onClick={toggleShow}
-                  onClick={
-                    functionToExclude === "handleDeleteAll"
-                      ? handleDeleteAll
-                      : () => handleDeletePin(selected)
-                  }
-                  className="exclude"
-                >
-                  <img src={trash} />
+                <button onClick={handleClick} className="exclude">
+                  <img src={trash} alt="trash" />
                   Excluir
                 </button>
                 <button onClick={handleCancell} className="cancell">
